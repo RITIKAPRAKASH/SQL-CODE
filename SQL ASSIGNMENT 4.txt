@@ -1,0 +1,127 @@
+                         SQL ASSIGNMENT 4
+
+
+
+CREATE DATABASE STUDENT_DATA
+USE STUDENT_DATA
+CREATE TABLE STUDENT(
+STUDENT_ID INT,
+NAME VARCHAR(100),
+SURNAME VARCHAR(100),
+BIRTH_DATE DATE,
+GENDER VARCHAR(20),
+CLASS VARCHAR(60),
+POINT INT
+)
+
+SELECT * FROM STUDENT
+INSERT INTO STUDENT VALUES(101,'RAM','KUMAR','1999-05-01','MALE',10,6)
+INSERT INTO STUDENT VALUES(102,'SHYAM','RAJ','1997-04-02','MALE',09,4)
+INSERT INTO STUDENT VALUES(103,'RITIKA','PRAKASH','1999-05-01','FEMALE',08,7)
+INSERT INTO STUDENT VALUES(104,'SHUBHAM','RATHI','1998-07-19','MALE',07,8)
+INSERT INTO STUDENT VALUES(105,'UDAY','YADAV','1993-09-03','MALE',05,9)
+INSERT INTO STUDENT VALUES(106,'KHUSHI','RANI','1995-04-11','FEMALE',03,5)
+INSERT INTO STUDENT VALUES(107,'RAVI','SONAKR','1994-04-17','MALE',06,8)
+INSERT INTO STUDENT VALUES(108,'SAKSHI','KUMARI','1999-10-06','FEMALE',07,4)
+INSERT INTO STUDENT VALUES(109,'KAJAL','PATIL','1996-01-04','FEMALE',08,7)
+INSERT INTO STUDENT VALUES(110,'PINKY','RAJ','1996-06-03','FEMALE',05,8)
+INSERT INTO STUDENT VALUES(111,'SHILPI','RAJ','1998-05-04','FEMALE',06,9)
+INSERT INTO STUDENT VALUES(112,'DIKSHA','PANDIT','1996-11-04','FEMALE',06,4)
+INSERT INTO STUDENT VALUES(113,'AASHTA','RAJPUT','1996-03-06','FEMALE','10MATHS',7)
+INSERT INTO STUDENT VALUES(114,'ANJALI','KUMARI','1995-08-20','FEMALE','10BIO',4)
+INSERT INTO STUDENT VALUES(115,'ANKITA','RAJ','1993-05-01','FEMALE',08,9)
+INSERT INTO STUDENT VALUES(116,'SUMIT','KUMAR','1997-05-08','MALE',09,7)
+INSERT INTO STUDENT VALUES(117,'AMAN','KUMAR','1998-04-08','MALE',08,6)
+INSERT INTO STUDENT VALUES(118,'AASHMET','RAJ','1996-04-07','MALE',09,7)
+INSERT INTO STUDENT VALUES(119,'ABHIJEET','ANAND','1998-08-06','MALE','10MATHS',8)
+INSERT INTO STUDENT VALUES(120,'MANJEET','RAJ','1998-04-07','MALE','10BIO',9)
+
+SELECT * FROM STUDENT
+DROP TABLE STUDENT
+-----------------------------------------------------------------------------------
+----------(1) List all the records in the student chart------------------
+SELECT * FROM STUDENT
+---------------------------------------------------------------------------------
+---------(2)List the name,surname and class of the student in the student table-------------
+SELECT NAME,SURNAME,CLASS FROM STUDENT
+------------------------------------------------------------------------------------------
+-------(3) List the gender Female (F) records in the student table-------------
+SELECT GENDER FROM STUDENT 
+WHERE GENDER='FEMALE'
+-----------------------------------------------------------------------------------
+--------(4): List the names of each class in the way of being seen once in the student table-------------
+SELECT CLASS FROM STUDENT
+------------------------------------------------------------------------------------
+-----(5) List the students with Female gender and the class 10Math in the student table---------
+SELECT GENDER, CLASS FROM STUDENT
+WHERE CLASS='10MATHS'AND GENDER='FEMALE'
+-------------------------------------------------------------------------------------
+--------(6)List the names, surnames and classes of the students in the class 10Math or 10Sci in the student table----------
+SELECT NAME,SURNAME,CLASS FROM STUDENT
+WHERE CLASS='10MATHS'OR CLASS='10SCI'
+------------------------------------------------------------------------------------
+-------(7)List the students name surname and school number(POINT) in the student table--------
+SELECT NAME,SURNAME,POINT FROM STUDENT
+-----------------------------------------------------------------------------------
+------(8)List the students name and surname by combining them as name surname in the student table------------
+select concat(NAME,'  ',SURNAME) as NAME_SURNAME 
+from STUDENT
+-----------------------------------------------------------------------------------------------------------------
+----(9)List the students with the names starting with “A” letter in the student table-------------
+SELECT * FROM STUDENT
+WHERE NAME LIKE 'A%'
+------------------------------------------------------------------------------------
+------(10)List the book names and pages count with number of pages between 50 and 200 in the book table----------
+CREATE TABLE BOOK_TABLE(
+BOOK_NAME VARCHAR(60),
+PAGES_COUNT INT)
+
+SELECT * FROM BOOK_TABLE
+
+INSERT INTO BOOK_TABLE VALUES('SCIENCE',200)
+INSERT INTO BOOK_TABLE VALUES('MATHS',300)
+INSERT INTO BOOK_TABLE VALUES('HINDI',400)
+INSERT INTO BOOK_TABLE VALUES('SST',100)
+INSERT INTO BOOK_TABLE VALUES('CHEMESTRY',600)
+INSERT INTO BOOK_TABLE VALUES('PHYSICS',500)
+-----------------------------------
+SELECT * FROM BOOK_TABLE
+WHERE PAGES_COUNT BETWEEN 50 AND 200
+--------------------------------------------------------------------------------
+-------(11) List the students with names Emma Sophia and Robert in the student table-------------
+DROP TABLE STUDENT
+SELECT NAME FROM STUDENT
+WHERE NAME IN('EMMA','SOPHIA','ROBERT')
+------------------------------------------------------------------------------------
+------(12) List the students with names starting with A D and K in the student table----------
+SELECT NAME FROM STUDENT
+WHERE NAME LIKE 'A%' 
+
+SELECT NAME FROM STUDENT
+WHERE NAME LIKE 'D%' 
+
+SELECT NAME FROM STUDENT
+WHERE NAME LIKE 'K%' 
+-----------------------------------------------------------------------------------
+------(13)List the names surnames classes and genders of males in 9Math or females in 9His in the student table------------
+DROP TABLE STUDENT
+
+SELECT NAME , SURNAME , CLASS , GENDER FROM STUDENT
+WHERE GENDER='MALE'AND CLASS='09MATHS'
+
+SELECT NAME , SURNAME , CLASS , GENDER FROM STUDENT
+WHERE GENDER='FEMALE'AND CLASS='09HIS'
+-------------------------------------------------------------------------------------
+------(14)List the males whose classes are 10Math or 10Bio-----------
+select GENDER,CLASS from student 
+where GENDER='MALE' AND CLASS='10MATHS' 
+
+select GENDER,CLASS from student
+where GENDER='MALE' AND CLASS='10BIO'
+------------(15)List the students with birth year 1989 in the student table------------------------
+DROP TABLE STUDENTS
+SELECT * from students 
+where student_id in (119,120)
+-----------------------------------------------------------------------
+
+

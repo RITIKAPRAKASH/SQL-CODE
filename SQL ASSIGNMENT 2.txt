@@ -1,0 +1,212 @@
+-----------ASSIGNMENT 2_------------------
+
+---------------Create Database Name as Order_Stores_Data----------------
+
+CREATE DATABASE Order_Stores_Data
+USE Order_Stores_Data
+CREATE TABLE ORDERS_TABLE(
+ORDER_DATE DATE,
+REGION VARCHAR(50),
+REP VARCHAR(50),
+ORDER_ITEM VARCHAR(50),
+UNITS INT,
+UNIT_COST FLOAT,
+TOTAL_PRICE FLOAT,
+ORDER_ID INT
+)
+SELECT * FROM  ORDERS_TABLE
+---------------------Insert All records in the Orders_table------------------
+
+insert into Orders_Table values
+('1-6-21','East','Aruna','Pencil',95,1.99,189.05,1),
+('1-23-21','Central','Kivell','Eraser',50,19.99,999.50,2),
+('2-9-21','Central','Ganesh','  ',36,4.99,179.64,3),
+('2-26-21','Central','Payal',' ',27,19.99,539.73,4),
+('3-15-21','West','Sorvino',' ',56,2.99,167.44,5),
+('4-1-21','East','Hitesh','Pencil',60,4.99,299.40,6),
+('4-18-21','Central','Akshita',' ',75,1.99,149.25,7),
+('5-5-21','Central','Ruchika','Books',90,4.99,449.10,8),
+('5-22-21','West','Surbhi',' ' , 32,1.99,63.68,9),
+('6-8-21','East','Jones','Suitcase',60,8.99,539.40,10)
+--------------------------------------------------------------------------------
+----------------CREATE TABLE AS STORE_TABLE------------------
+
+CREATE TABLE STORE_TABLE(
+STORE_ID INT,
+STORE_TYPE VARCHAR(50),
+ASSORTMENT INT,
+COMPETITION_DISTANCE INT,
+MONTH INT,
+YEAR INT,
+PROMO_INTERVAL VARCHAR(40)
+)
+insert into Store_Table values
+(1,'c',45,1270,9,2008,'Jan'),
+(2,'a',36,570,11,2007,'Feb'),
+(3,'a',31,14130,12,2006,'Mar'),
+(4,'c',38,620,9,2009,' '),
+(5,'a',36,29910,4,2015,'May'),
+(6,'a',43,310,12,2013,'June'),
+(7,'a',26,24000,4,2013,' '),
+(8,'a',29,7520,10,2014,'Aug'),
+(9,'a',35,2030,8,2000,' '),
+(10,'a',21,3160,9,2009,'Oct')
+
+SELECT * FROM STORE_TABLE
+-----------------------------------------------------------------------------------
+--------Q3) Make Order_Id  Column as Primary Key.--------------
+
+ALTER TABLE ORDERS_TABLE
+ALTER COLUMN ORDER_ID INT NOT NULL 
+
+ALTER TABLE ORDERS_TABLE
+ADD PRIMARY KEY (ORDER_ID)
+----------------------------------------------------------------------------------
+-----Q4) Add one Column Name as Store_Names and insert the records given above in Stores table.----------------
+
+ALTER TABLE STORE_TABLE
+ADD STORE_NAMES VARCHAR (50)
+SELECT * FROM STORE_TABLE
+
+------------------Hint = directly insert data without query------------------------
+
+--------------------------------------------------------------------------------------------
+-------------Q5) Make Stored_Id as a Foreign Key with reference too Orders_Table ----------------
+
+
+alter table Store_Table
+Add Constraint
+FK_Store_ID Foreign Key (Store_ID) References Orders_Table(Order_ID)
+--------------------------------------------------------------------------------------
+---------Q6) Update the missing  records in the Order_item Column in Order_table missing records are given in this sheet-------------
+
+UPDATE ORDERS_TABLE
+SET ORDER_ITEM = 'Compass'
+WHERE ORDER_ID = 3
+
+UPDATE ORDERS_TABLE
+SET ORDER_ITEM = 'Torch'
+WHERE ORDER_ID = 4
+
+UPDATE ORDERS_TABLE
+SET ORDER_ITEM = 'Phone'
+WHERE ORDER_ID = 5
+
+UPDATE ORDERS_TABLE
+SET ORDER_ITEM = 'Laptop'
+WHERE ORDER_ID = 7
+
+UPDATE ORDERS_TABLE
+SET ORDER_ITEM = 'Box'
+WHERE ORDER_ID = 9
+SELECT * FROM[dbo].[ORDERS_TABLE]
+----------------------------------------------------------------------------------
+--------Q7) Update the missing records in the PromoInterval Column in Stores Table.-----------------
+
+SELECT * FROM [dbo].[STORE_TABLE]
+
+UPDATE STORE_TABLE
+SET PROMO_INTERVAL = 'April'
+WHERE STORE_ID = 4
+
+UPDATE STORE_TABLE
+SET PROMO_INTERVAL = 'July'
+WHERE STORE_ID = 7
+
+UPDATE STORE_TABLE
+SET PROMO_INTERVAL = 'Sept'
+WHERE STORE_ID = 9
+----------------------------------------------------------------------------------------
+--------Q8) Rename the column name  of Assortment to Store_Nos in Stores_Table.----------------
+
+------ALTER TABLE [dbo].[STORE_TABLE] RENAME COLUMN 'Assortment' TO 'Store_Nos'---------
+
+---------------------------------------------------------------------------------------
+
+-----------Q10) Sort the Unit Cost of Orders_table in Descding order and Total column in Ascending order.--------------
+
+SELECT * FROM[dbo].[ORDERS_TABLE]
+
+SELECT * FROM ORDERS_TABLE
+ORDER BY UNIT_COST DESC
+
+SELECT * FROM ORDERS_TABLE
+ORDER BY ORDER_DATE,REGION,REP,ORDER_ITEM,UNITS, TOTAL_PRICE, ORDER_ID ASC
+--------------------------------------------------------------------------------------
+----Q11) Convert Customers_name to Cus_Name  and find how many  Cus_Name in each region.------------------
+
+PENDING
+
+UPDATE REP FROM ORDERS_TABLE
+SET REP = CUS_NAME 
+-------------------------------------------------------------------------------------
+-----Q12) Find the sum of Total_Price Column and Unit Cost  in Orders_Table ------------
+
+SELECT SUM (Total_Price) AS STP
+FROM [dbo].[ORDERS_TABLE]
+
+SELECT * FROM ORDERS_TABLE
+
+SELECT SUM (UNIT_COST) AS UNIT_COST_SUM
+FROM[dbo].[ORDERS_TABLE]
+---------------------------------------------------------------------------------
+
+------Q13) Show me OrderDate , Unit Cost , StoreType and Year in One table and names that table as Order_Stores_Table.------------
+
+CREATE TABLE ORDER_STORES_TABLE(
+ORDER_DATE DATE,
+UNIT_COST FLOAT,
+STORE_TYPE CHAR(2),
+YEAR INT)
+
+SELECT * FROM ORDER_STORES_TABLE
+--we directly insert data into table--
+---------------------------------------------------------------------------------------
+------Q14)  Give me Order_Item  and Region whose Order_Id is 4 , 5, 6 ,9----------
+
+SELECT * FROM[dbo].[ORDERS_TABLE]
+SELECT ORDER_ITEM , REGION , ORDER_ID FROM [dbo].[ORDERS_TABLE]
+WHERE ORDER_ID IN (4,5,6,9)
+----------------------------------------------------------------------------------------
+------Q15) Show me year  whose ComptetitionDistance is 29910  , 310 , 3160------------
+
+SELECT * FROM[dbo].[STORE_TABLE][dbo]
+SELECT YEAR,COMPETITION_DISTANCE FROM [dbo].[STORE_TABLE]
+WHERE  COMPETITION_DISTANCE IN (29910,310,3160)
+-----------------------------------------------------------------------------------
+-------Q16)  Give me that Item_name whose  Total_Price is greater than 200 and less than 400-----------
+
+SELECT ORDER_ITEM , TOTAL_PRICE  FROM [dbo].[ORDERS_TABLE]
+WHERE TOTAL_PRICE >200 
+
+SELECT ORDER_ITEM , TOTAL_PRICE  FROM [dbo].[ORDERS_TABLE]
+WHERE TOTAL_PRICE <400
+ ------------------------------------------------------------------------------------
+ ------Q17) Rename the CompetitionDistance as CD and find the total CD in Stores_Table.------------------
+ -----------------------------------------------------------------------------------------
+
+ ---Q18) What is the Total Count of Stores_Type and CD columns-------------
+
+ SELECT COUNT(STORE_TYPE) AS TOTAL_COUNT_ST
+ FROM [dbo].[STORE_TABLE]
+
+ SELECT COUNT(COMPETITION_DISTANCE) AS TOTAL_COUNT_CD
+ FROM [dbo].[STORE_TABLE]
+
+ SELECT * FROM [dbo].[STORE_TABLE]
+----------------------------------------------------------------------------------
+------Q19) Apply the Cross Join in  Orders_Table and Stores_Table.------------
+
+SELECT * FROM [dbo].[ORDERS_TABLE]
+CROSS JOIN 
+[dbo].[STORE_TABLE]
+----------------------------------------------------------------------------------
+------Q20) DROP both the databases----------
+---------------------------------------------------------------
+
+
+
+
+
+
+

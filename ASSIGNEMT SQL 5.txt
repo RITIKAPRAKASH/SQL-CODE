@@ -1,0 +1,197 @@
+                                                             ---------- ASSIGNMENT 5----------------
+CREATE DATABASE PUNE_UNIVERSITY
+CREATE TABLE COLLEGE_TABLE(
+COLLEGE_ID INT PRIMARY KEY,
+COLLEGE_NAME VARCHAR(60),
+COLLEGE_AREA VARCHAR(70)
+)
+
+SELECT * FROM COLLEGE_TABLE
+
+INSERT INTO COLLEGE_TABLE VALUES(01,'SVJ_College','BIHAR')
+INSERT INTO COLLEGE_TABLE VALUES(02,'Birla_College','PUNE')
+INSERT INTO COLLEGE_TABLE VALUES(03,'YCC_College','PATNA ')
+INSERT INTO COLLEGE_TABLE VALUES(04,'Sipna_College','MUMBAI')
+INSERT INTO COLLEGE_TABLE VALUES(05,'HVPM_College','NASIK')
+INSERT INTO COLLEGE_TABLE VALUES(06,'WPU-MIT_College','PURI')
+INSERT INTO COLLEGE_TABLE VALUES(07,'Fergusson_College','CHAPRA')
+INSERT INTO COLLEGE_TABLE VALUES(08,'SFL_College','BUXER')
+INSERT INTO COLLEGE_TABLE VALUES(09,'CWK_College','Bardi_Nagpur')
+INSERT INTO COLLEGE_TABLE VALUES(10,'Vidyabharti_College','Rajapeth_Amravati')
+
+------------------------------------------------------------------------------
+CREATE TABLE DEPARTMENT_TABLE(
+
+DEPT_ID INT PRIMARY KEY,
+DEPT_NAME VARCHAR(60),
+DEPT_FACILITY VARCHAR(70)
+)
+
+SELECT *  FROM DEPARTMENT_TABLE
+
+INSERT INTO Department_Table VALUES(01,'CA','A.W.Zade')
+INSERT INTO Department_Table VALUES(02,'SD','S.W.Raut')
+INSERT INTO Department_Table VALUES(03,'B.Com','G.K.Wankhade')
+INSERT INTO Department_Table VALUES(04,'M.A','V.N.Shende')
+INSERT INTO Department_Table VALUES(05,'HE','V.B.Agrawal')
+INSERT INTO Department_Table VALUES(06,'CS','N.M.Kate')
+INSERT INTO Department_Table VALUES(07,'APTR','V.L.Narkhede')
+INSERT INTO Department_Table VALUES(08,'MSRE','J.L.Adam')
+INSERT INTO Department_Table VALUES(09,'Science','F.P.Watson')
+INSERT INTO Department_Table VALUES(10,'BBM','C.Y.Willson')
+
+----------------------------------------------------------------------------------
+CREATE TABLE PROFESSOR_TABLE(
+PROFESSOR_ID INT PRIMARY KEY,
+PROFESSOR_NAME VARCHAR(60),
+PROFESSOR_SUBJECT VARCHAR (80)
+)
+
+SELECT * FROM PROFESSOR_TABLE
+
+INSERT INTO Professor_Table VALUES(01,'A.W.Zade','C++')
+INSERT INTO Professor_Table VALUES(02,'S.W.Raut','Java')
+INSERT INTO Professor_Table VALUES(03,'G.K.Wankhade','Account')
+INSERT INTO Professor_Table VALUES(04,'V.N.Shende','SWE')
+INSERT INTO Professor_Table VALUES(05,'V.B.Agrawal','ECB')
+INSERT INTO Professor_Table VALUES(06,'N.M.Kate','CFM')
+INSERT INTO Professor_Table VALUES(07,'V.L.Narkhede','DBMS')
+INSERT INTO Professor_Table VALUES(08,'J.L.Adam','PYTHON')
+INSERT INTO Professor_Table VALUES(09,'F.P.Watson','ML')
+INSERT INTO Professor_Table VALUES(10,'C.Y.Willson','VBA')
+-------------------------------------------------------------------------------
+
+CREATE TABLE STUDENT_TABLE(
+STUDENT_ID INT PRIMARY KEY,
+STUDENT_NAME VARCHAR(60),
+STUDENT_STREAM VARCHAR(90)
+)
+
+SELECT * FROM STUDENT_TABLE
+
+Insert into Student_Table values(01,'Ashish','Engineering')
+Insert into Student_Table values(02,'Ramesh','MBBS')
+Insert into Student_Table values(03,'Suresh','LLB')
+Insert into Student_Table values(04,'Sujata','Engineering')
+Insert into Student_Table values(05,'Alia','B.Com')
+Insert into Student_Table values(06,'Sumeet','BCA')
+Insert into Student_Table values(07,'Adam','M.E')
+Insert into Student_Table values(08,'watson','MCA')
+Insert into Student_Table values(09,'Paul','CA')
+Insert into Student_Table values(10,'Sania','Engineering')
+--------------------------------------------------------------------------------
+
+Alter table Department_Table
+ Add constraint fk
+ foreign key (Dept_ID) references COLLEGE_TABLE(COLLEGE_ID)
+ ------------------------------------------------------------------
+
+ Alter table Student_Table
+ add constraint fkStud
+ foreign key (Student_ID) references Professor_Table(Professor_ID)
+ -----------------------------------------------------------------------
+                      ---------- TASK 2 -----------------
+ --- 1)	Give the information of College_ID and College_name from College_Table
+ select COLLEGE_ID,COLLEGE_NAME FROM COLLEGE_TABLE
+ -----------------------------------------------------------
+ -----2)	Show  Top 5 rows from Student table
+ SELECT * FROM Student_Table
+ where Student_id<=5
+ --------------------------------------------------------------
+ -----3)	What is the name of  professor  whose ID  is 5 -----
+ select Professor_ID,Professor_Name from Professor_Table
+ where Professor_ID=5
+ ---------------------------------------------------------------------
+ -----4)	Convert the name of the Professor into Upper case ----
+ select Upper(Professor_Name) from Professor_Table
+ ------------------------------------------------------------------
+ ---5)	Show me the names of those students whose name is start with a----
+ select * from Student_Table
+ where Student_Name like'A%'
+ -------------------------------------------------------------
+ ----6)	Give the name of those colleges whose end with a--------
+ select * from COLLEGE_TABLE
+ where COLLEGE_NAME like'%A'
+ --------------------------------------------------------------------
+ ----7)Add one Salary Column in Professor_Table------
+ alter table Professor_Table
+ add Salary int;
+ SELECT * FROM PROFESSOR_TABLE
+---------------------------------------------------
+-----8)	Add one Contact Column in Student_table---
+alter table Student_Table
+add Contact int
+-------------------------------------------------
+---9)	Find the total Salary of Professor ----------
+select Sum(Salary) as Total_Salary 
+from Professor_Table
+------------------------------------------------------------
+----10)	Change datatype of any one column of any one Table
+alter table COLLEGE_TABLE
+ALTER COLUMN COLLEGE_NAME CHAR(100)
+SELECT * FROM COLLEGE_TABLE
+-------------------------------------------------------
+------------TASK 3----------------------
+
+---1)	Show first 5 records from Students table and Professor table Combine----
+select * from Student_Table 
+where Student_ID<=5
+union all
+select * from Professor_Table
+where Professor_ID<=5
+-------------------------------------------------------------
+--2) 	Apply Inner join on all 4 tables together-----
+SELECT * FROM COLLEGE_TABLE A 
+INNER JOIN Department_Table B ON A.COLLEGE_ID = B.Dept_ID
+INNER JOIN Professor_Table C ON A.COLLEGE_ID = C.Professor_ID
+INNER JOIN Student_Table D ON A.COLLEGE_ID = D.Student_ID
+-----------------------------------------------------------------------
+---3)	Show Some null values from Department table and Professor table.
+select * from Department_Table
+where Dept_Facility IS NULL
+
+
+select * from Professor_Table
+where Professor_Name is null
+----4)	Create a View from College Table  and give those records whose college name starts with C
+
+CREATE VIEW  [COLLEGE STUDENT] AS
+select COLLEGE_NAME,COLLEGE_ID 
+from COLLEGE_TABLE 
+WHERE COLLEGE_NAME LIKE 'C%'
+
+SELECT * from  [COLLEGE STUDENT]
+-----------------------------------------------------------------------------
+---5)Create Stored Procedure  of Professor table whatever customer ID will be given by user it should show whole records of it.
+create procedure Stored_Procedure
+as begin
+select * from Professor_Table
+end
+
+exec Stored_Procedure
+--------------------------------------------------------------------------------------
+---6)Rename the College_Table to College_Tables_Data 
+alter table COLLEGE_TABLE 
+RENAME TO College_Tables_Data
+-------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
